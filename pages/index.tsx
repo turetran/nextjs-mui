@@ -7,15 +7,34 @@ import { styled, useTheme } from '@mui/material/styles';
 
 import estyled from '@emotion/styled'
 import Box from '@mui/material/Box';
-import { Drawer } from '@mui/material';
+import { Drawer, Typography } from '@mui/material';
 import Link from 'next/link'
+import MuiLink from '@mui/material/Link';
+import { useRouter } from 'next/router';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
 
+type FieldIf = {
+  [key: string]: string
+}
 
-const MyButton = styled(Button)({
-  background: "red"
-});
+type Texti18nIf = {
+  [key: string]: FieldIf
+}
+
+const texti18n: Texti18nIf = {
+  vn: {
+    chess: "Cờ vua",
+    home: "Trang chủ"
+  },
+  en: {
+    chess: "Chess",
+    home: "Home"
+  }
+}
 
 const Home: NextPage = () => {
+  const { locale } = useRouter()
+  const _lc = locale || 'vn'
   return (
     <div>
       <Head>
@@ -24,7 +43,16 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main >
-        <div> This is Dashboard</div>
+        <Breadcrumbs aria-label="breadcrumb">
+          <Link href='/'><MuiLink underline='hover' style={{ cursor: "pointer" }}>{texti18n[_lc].home}</MuiLink></Link>
+        </Breadcrumbs>
+        <Box display={'flex'}
+          justifyContent={"center"}
+          alignItems={"center"}
+          style={{ border: "0px solid red", marginTop: 5 }}
+        >
+          <Link href='chess'><a><MuiLink variant='h3' underline='hover'>{texti18n[_lc].chess}</MuiLink></a></Link>
+        </Box>
       </main>
     </div>
   )
