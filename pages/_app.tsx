@@ -1,11 +1,11 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import { red, green, purple, yellow } from '@mui/material/colors';
+import { red, green} from '@mui/material/colors';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { useRouter } from 'next/router'
-import { Button, Drawer, Menu, MenuItem } from '@mui/material'
+import { Drawer, Menu, MenuItem } from '@mui/material'
 import Link from 'next/link'
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -22,38 +22,26 @@ import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturi
 import BatteryUnknownIcon from '@mui/icons-material/BatteryUnknown';
 import LanguageIcon from '@mui/icons-material/Language';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import {texti18n} from '../utils/i18nCommon'
+import { styled } from '@mui/material/styles';
+
+export const Main = styled('div')({
+  maxWidth: 720,
+  marginTop: 25,
+  margin: 'auto',
+})
+
+export const CenterBox = styled('div')({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  marginTop: 25,
+})
 
 export const AppContext = createContext({
   menuShow: true,
   setShow: () => { }
 });
-
-type FieldIf = {
-  [key: string]: string
-}
-
-type Texti18nIf = {
-  [key: string]: FieldIf
-}
-
-const texti18n: Texti18nIf = {
-  vn: {
-    dashboard: "Trang chủ",
-    chess: "Cờ vua",
-    endgame: "Tàn cuộc",
-    beginner: "Người mới",
-    mainTitle: "Tài liệu",
-    language: "Tiếng Việt",
-  },
-  en: {
-    dashboard: "Dashboard",
-    chess: "Chess",
-    endgame: "End game",
-    beginner: "Beginner",
-    mainTitle: "Document",
-    language: "English",
-  }
-}
 
 const mytheme = createTheme({
   palette: {
@@ -86,10 +74,6 @@ function MyApp({ Component, pageProps }: AppProps) {
   const { locale } = router;
   
   const _lc:string = locale || 'vn'
-
-  useEffect(() => {
-    router.push('#',undefined,{locale: locale})
-  }, [locale])
 
   return <AppContext.Provider value={{ menuShow: val, setShow: () => { setVal(!val) } }}>
     <ThemeProvider theme={mytheme}>
@@ -144,7 +128,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           </a>
         </Link>
       </Drawer>
-      <div style={{ marginLeft: (val ? 150 : 0), display: 'flex', alignItems: "center" }}>
+      <div style={{ marginLeft: (val ? 160 : 0), display: 'flex', alignItems: "center" }}>
         <AppBar position="static">
           <Toolbar>
             <IconButton style={{ display: (val ? 'none' : 'inline'), marginLeft: 0, marginTop: 4 }}
